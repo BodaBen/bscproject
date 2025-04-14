@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BodaBen/bscproject/issues"
   },
-  "homepage": "https://github.com/BodaBen/bscproject#readme"
+  "homepage": "https://github.com/BodaBen/bscproject#readme",
+  "devDependencies": {
+    "cypress": "^14.3.0"
+  }
 }
