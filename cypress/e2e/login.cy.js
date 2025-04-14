@@ -1,6 +1,6 @@
 describe('Bejelentkező oldal – alapfunkcionalitás', () => {
     it('Az oldal sikeresen betöltődik, az alap elemek láthatók', () => {
-      cy.visit('https://analyst.attrecto-dev.com/app/login')
+      cy.visit('/')
   
       // Ellenőrizd, hogy az oldal betöltődött
       cy.url().should('include', '/login')
