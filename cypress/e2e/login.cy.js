@@ -2,7 +2,7 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
     it('Az oldal sikeresen betöltődik, az alap elemek láthatók', () => {
       cy.visit('/')
   
-      // Ellenőrizd, hogy az oldal betöltődött
+      // Oldal elérhetőségének ellenőrzése
       cy.url().should('include', '/login')
   
       // Email mező látható
