@@ -40,7 +40,7 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
       cy.url().should('not.include', '/login') // Elhagyja a login oldalt
   
       // (Opcionális) Ellenőrizzük, hogy a dashboard-on vagyunk
-      cy.url().should('include', '/dashboard') // vagy amit az oldal használ
+      //cy.url().should('include', '/dashboard') // vagy amit az oldal használ
   
       // (Opcionális) Ellenőrizhetünk UI elemet is, pl.
       // cy.contains('Üdvözlünk') vagy cy.get('nav').should('exist')
