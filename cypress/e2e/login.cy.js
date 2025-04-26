@@ -40,9 +40,31 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
       cy.url().should('not.include', '/login') // Elhagyja a login oldalt
   
       // (Opcionális) Ellenőrizzük, hogy a dashboard-on vagyunk
-      //cy.url().should('include', '/dashboard') // vagy amit az oldal használ
+      //cy.url().should('include', '/dashboard') // vagy amit az oldal használ - hiba példa lehet
   
       // (Opcionális) Ellenőrizhetünk UI elemet is, pl.
       // cy.contains('Üdvözlünk') vagy cy.get('nav').should('exist')
+    })
+    it('Sikeres bejelentkezés után sikeres kilépés', () => {
+      const email = Cypress.env('username')
+      const pw = Cypress.env('password')
+  
+      // Bejelentkezés
+      cy.visit('/login')
+      cy.get('input[name="email"]').type(email)
+      cy.get('input[name="password"]').type(pw)
+      cy.get('button[type="submit"]').click()
+  
+      cy.url().should('not.include', '/login')
+  
+      // (Várakozás, ha szükséges, pl. animáció miatt)
+      cy.wait(500)
+  
+      //Legördülő menü megnyitása, ahol a kijelentkezés gomb van
+      cy.get('span.hidden-xs > .profile-dropdown-container > .analyst-public-dropdown > #profile-dropodown').click()
+      //Kijelentkezés gomb megnyomása
+      cy.get('span.hidden-xs > .profile-dropdown-container > .analyst-public-dropdown > .dropdown-menu > :nth-child(7) > a > .icon-logout-outline').click()
+      //Ellenőrizzük, hogy visszakerültünk a login oldalra
+      cy.url().should('include', '/login')
     })
   })
