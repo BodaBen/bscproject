@@ -68,3 +68,25 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
       cy.url().should('include', '/login')
     })
   })
+
+  describe('Hibás bejelentkezés kezelése', () => {
+    it('Hibás adatok esetén hibaüzenet', () => {
+      // Oldal betöltése
+      cy.visit('/login')
+  
+      // Hibás adatok megadása
+      cy.get('input[name="email"]').type('rossz@pelda.hu')
+      cy.get('input[name="password"]').type('rosszjelszo')
+  
+      // Bejelentkezés
+      cy.get('button[type="submit"]').click()
+  
+      // Hibaüzenet ellenőrzése pontos szöveggel
+      cy.get('.error-message > span')
+        .should('be.visible')
+        .and('contain.text', 'The email or password is incorrect!')
+  
+      // Ellenőrzés, hogy továbbra is a login oldalon vagyunk
+      cy.url().should('include', '/login')
+    })
+  })
