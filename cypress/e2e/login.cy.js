@@ -57,7 +57,7 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
   
       cy.url().should('not.include', '/login')
   
-      // (Várakozás, ha szükséges, pl. animáció miatt)
+      // (Várakozás az oldal betöltéséhez)
       cy.wait(500)
   
       //Legördülő menü megnyitása, ahol a kijelentkezés gomb van
