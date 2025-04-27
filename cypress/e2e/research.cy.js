@@ -116,5 +116,99 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
         })
       
       })
+      describe('Research oldal filterek működésének ellenőrzése', () => {
+
+        beforeEach(() => {
+          cy.visit('/login')
+      
+          const email = Cypress.env('username')
+          const password = Cypress.env('password')
+      
+          cy.login(email, password)
+      
+        })
+
+        it('Default filter megjelenésének ellenőrzése ("All Research")', () => {
+            cy.wait(500)
+            cy.get('.filled')
+              .should('be.visible')
+              .and('contain.text', 'All Research')
+          })
+        
+          it('Special Topics filter megjelenésének ellenőrzése', () => {
+            cy.wait(500)
+            cy.get('.post-view-filter > :nth-child(1) > :nth-child(4)')
+              .should('be.visible')
+              .and('contain.text', 'Special Topics')
+          })
+        
+          it('Initiations filter megjelenésének ellenőrzése', () => {
+            cy.wait(500)
+            cy.get('.post-view-filter > :nth-child(1) > :nth-child(5)')
+              .should('be.visible')
+              .and('contain.text', 'Initiations')
+          })
+        
+          it('Drops filter megjelenésének ellenőrzése', () => {
+            cy.wait(500)
+            cy.get('.post-view-filter > :nth-child(1) > :nth-child(6)')
+              .should('be.visible')
+              .and('contain.text', 'Drops')
+          })
+        
+      
+        it('Long filter működésének ellenőrzése', () => {
+          cy.wait(500)
+          // Long gomb megnyomása
+          cy.get('.post-view-filter > :nth-child(2) > .mr-3').click({ force: true })
+      
+          // Várakozás az oldal újraszűrésére
+          cy.wait(1000)
+      
+          // Ellenőrizzük az URL-t
+          cy.url().should('include', 'recommendations[0]=long')
+      
+          // Ellenőrizzük az első elem címét
+          cy.get('.first > .post-card-inner > .card > .title')
+            .should('be.visible')
+            .and('contain.text', 'log5')
+        })
+      
+        it('Long filter kikapcsolásának ellenőrzése (vissza default nézetre)', () => {
+          cy.wait(500)
+      
+          // Long gomb újrakattintása (kikapcsolás)
+          cy.get('.post-view-filter > :nth-child(2) > .mr-3').click({ force: true })
+      
+          // Várakozás újratöltésre
+          cy.wait(1000)
+      
+          // Ellenőrizzük, hogy az alap listaelem visszatér
+          cy.get('.first > .post-card-inner > .card > .title')
+            .should('be.visible')
+            .and('contain.text', 'Push20250423')
+        })
+      
+        it('Short filter működésének ellenőrzése', () => {
+          cy.wait(500)
+      
+          // Short gomb megnyomása
+          cy.get('.post-view-filter > :nth-child(2) > :nth-child(3)').click({ force: true })
+      
+          // Várakozás újraszűrésre
+          cy.wait(1000)
+      
+          // Ellenőrizzük az URL-t
+          cy.url().should('include', 'recommendations[0]=short')
+      
+          // Ellenőrizzük az első listaelem címét
+          cy.get('.first > .post-card-inner > .card > .title')
+            .should('be.visible')
+            .and('contain.text', 'Test')
+        })
+    })
+        
+      
+
       
         
