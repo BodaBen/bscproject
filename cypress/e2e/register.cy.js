@@ -1,4 +1,4 @@
-describe('Új user létrehozása és keresése a Dashboard Users menüpontban', () => {
+describe('Új user létrehozása', () => {
 
   before(() => {
     cy.visit('/login')
@@ -13,7 +13,7 @@ describe('Új user létrehozása és keresése a Dashboard Users menüpontban', 
     cy.url().should('include', '/all-research?topic=all_research')
   })
 
-  it('Új user létrehozása, majd visszakeresése email alapján', () => {
+  it('Új user létrehozása és visszakeresése', () => {
     cy.wait(500)
 
     // Profil menü -> Dashboard navigáció
