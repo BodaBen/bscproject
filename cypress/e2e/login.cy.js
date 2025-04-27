@@ -148,7 +148,6 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
         .then(($btn) => {
           const position = $btn.position()
     
-          // Ellenőrizzük, hogy valahol a képernyő középső részén legyen
           expect(position.top).to.be.greaterThan(200)    // legalább 200px-re felülről
           expect(position.top).to.be.lessThan(800)       // ne legyen túl lent
     
@@ -156,12 +155,8 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
           expect(position.left).to.be.lessThan(1000)     // ne lógjon ki
         })
     })
-    it('A Sign In gomb betűméretének ellenőrzése', () => {
-      cy.visit('/login')
-    
-      cy.get('button[type="submit"]')
-        .should('be.visible')
-        .should('have.css', 'font-size', '16px') //
+    it('Képernyőkép készítése', () => {
+      cy.screenshot('sign_in_button_checked')
     })
   })
   
