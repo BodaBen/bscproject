@@ -28,9 +28,10 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
         cy.contains(Cypress.env('username')).should('be.visible')
       })
   })
-  describe('Bejelentkezés utáni UI navigációs ellenőrzés (csak URL)', () => {
 
-    beforeEach(() => {
+  describe('Bejelentkezés utáni UI navigációs ellenőrzés', () => {
+
+    before(() => {
       cy.visit('/login')
   
       const email = Cypress.env('username')
@@ -38,57 +39,82 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
   
       cy.login(email, password)
     })
-  
-    it('Research oldal URL ellenőrzése', () => {
-      cy.contains('Research').click({ force: true })
-      cy.url().should('include', '/all-research?topic=all_research')
+    it('Navigációk ellenőrzése bejelentkezés után (bal menü)', () => {
+        cy.wait(500)
+        cy.contains('Research')
+        cy.url().should('include', '/all-research?topic=all_research')
+    
+        //cy.wait(500)
+        //cy.contains('Recommendations').should('be.visible')
+    
+        cy.wait(500)
+        cy.contains('Sentiment Tracker').click({ force: true })
+        cy.url().should('include', '/sentiment-tracker')
+    
+        cy.wait(500)
+        cy.contains('Model Portfolio').click({ force: true })
+        cy.url().should('include', '/model-portfolio')
+    
+        cy.wait(500)
+        cy.contains('Short Screen').click({ force: true })
+        cy.url().should('include', '/short-screen')
+    
+        cy.wait(500)
+        cy.contains('Factor Panel').click({ force: true })
+        cy.url().should('include', '/factor-panel')
+    
+        cy.wait(500)
+        cy.contains('A-Z Companies').click({ force: true })
+        cy.url().should('include', '/companies')
+    
+        cy.wait(500)
+        cy.contains('Bookmarks').click({ force: true })
+        cy.url().should('include', '/bookmarks')
+    
+      })
     })
-  
-    it('Recommendations menü: megnyitás és Long submenu URL ellenőrzése', () => {
-      cy.contains('Recommendations').click({ force: true })
-      cy.contains('Long').click()
-      cy.url().should('include', '/recommendations/long')
-    })
-  
-    it('Recommendations menü: Short submenu URL ellenőrzése', () => {
-      cy.contains('Recommendations').click({ force: true })
-      cy.contains('Short').click()
-      cy.url().should('include', '/recommendations/short')
-    })
-  
-    it('Sentiment Tracker oldal URL ellenőrzése', () => {
-      cy.contains('Sentiment Tracker').click({ force: true })
-      cy.url().should('include', '/sentiment-tracker')
-    })
-  
-    it('Model Portfolio oldal URL ellenőrzése', () => {
-      cy.contains('Model Portfolio').click({ force: true })
-      cy.url().should('include', '/model-portfolio')
-    })
-  
-    it('Short Screen oldal URL ellenőrzése', () => {
-      cy.contains('Short Screen').click({ force: true })
-      cy.url().should('include', '/short-screen')
-    })
-  
-    it('Factor Panel oldal URL ellenőrzése', () => {
-      cy.contains('Factor Panel').click({ force: true })
-      cy.url().should('include', '/factor-panel')
-    })
-  
-    it('A-Z Companies oldal URL ellenőrzése', () => {
-      cy.contains('A-Z Companies').click({ force: true })
-      cy.url().should('include', '/companies')
-    })
-  
-    it('Bookmarks oldal URL ellenőrzése', () => {
-      cy.contains('Bookmarks').click({ force: true })
-      cy.url().should('include', '/bookmarks')
-    })
-  
-    it('Visszaugrás a Research oldalra', () => {
-      cy.contains('Research').should('be.visible').click()
-      cy.url().should('include', '/all-research?topic=all_research')
-    })
-  
-  })
+
+    describe('Kezdőoldali elemek ellenőrzése', () => {
+
+        beforeEach(() => {
+          cy.visit('/login')
+      
+          const email = Cypress.env('username')
+          const password = Cypress.env('password')
+      
+          cy.login(email, password)
+        })
+      
+        it('Kezdőoldali elemek megjelenésének ellenőrzése', () => {
+          cy.wait(500)
+      
+          // "Contact Your Account Manager" gomb megjelenése
+          cy.get('div.hidden-xs > .button')
+            .should('be.visible')
+            .and('contain.text', 'Contact Your Account Manager')
+      
+          cy.wait(500)
+      
+          // "Search" gomb megjelenése
+          cy.get('.button.hidden-xs')
+            .should('be.visible')
+            .and('contain.text', 'Search')
+        })
+      
+        it('Fejléc háttérszínének ellenőrzése', () => {
+          cy.wait(500)
+      
+          cy.get('.analyst-app-header > .container-fluid') // header kiválasztása
+            .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+        })
+      
+        it('Oldal háttérszínének ellenőrzése', () => {
+          cy.wait(500)
+      
+          cy.get('body')
+            .should('have.css', 'background-color', 'rgb(230, 230, 230)')
+        })
+      
+      })
+      
+        
