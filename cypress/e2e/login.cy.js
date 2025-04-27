@@ -90,3 +90,33 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
       cy.url().should('include', '/login')
     })
   })
+
+  //UI property validation tesztek itt kezdődnek
+  describe('UI property validation', () => {
+
+    it('A body háttérszíne a megadott színkóddal egyezik meg', () => {
+      cy.visit('/login')
+  
+      cy.get('body')
+        .should('have.css', 'background-color', 'rgb(230, 230, 230)')
+    })
+  
+    it('Helyes input mezők háttérszíne', () => {
+      cy.visit('/login')
+  
+      cy.get('input[name="email"]')
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+  
+      cy.get('input[name="password"]')
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    })
+  
+    it('A Sign In gomb háttérszíne helyes', () => {
+      cy.visit('/login')
+  
+      cy.get('button[type="submit"]')
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+    })
+  
+  })
+  
