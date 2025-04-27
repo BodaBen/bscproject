@@ -32,7 +32,7 @@ describe('Egyszerű keresés tesztelése a főoldalon', () => {
       // cy.get('.icons > .icon-search-outline').click({ force: true })
   
       // Hosszabb várakozás a lassú keresés miatt
-      cy.wait(3000) // 120 másodperc = 2 perc
+      cy.wait(3000)
   
       // Eredménycím ellenőrzése
       cy.get('.first > .post-card-inner > .card > .title')
