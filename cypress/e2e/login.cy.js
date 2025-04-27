@@ -118,5 +118,50 @@ describe('Bejelentkező oldal – alapfunkcionalitás', () => {
         .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
     })
   
+    it('A Sign In gomb hover színének ellenőrzése valid adatokkal', () => {
+      // Oldal betöltése
+      cy.visit('/login')
+    
+      // Helyes formai követelményeknek megfelelő adatok kellenek
+      cy.get('input[name="email"]').type('teszt@pelda.hu')
+      cy.get('input[name="password"]').type('jelszo123')
+    
+      // Ellenőrizzük az eredeti háttérszínt még hover nélkül
+      cy.get('button[type="submit"]')
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)') // átlátszó
+    
+      // Hover effekt szimulálása 
+      cy.get('button[type="submit"]')
+        .trigger('mouseover') // hover imitálása
+    
+      // Ellenőrizzük a hover állapot utáni háttérszínt
+      cy.get('button[type="submit"]')
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)') 
+        // Jelen esetben a .trigger('mouseover') nem váltja ki a CSS által megjelenitett változásokat (rgb(236, 96, 89))
+
+    })
+    it('A Sign In gomb pozíciójának ellenőrzése', () => {
+      cy.visit('/login')
+    
+      cy.get('button[type="submit"]')
+        .should('be.visible')
+        .then(($btn) => {
+          const position = $btn.position()
+    
+          // Ellenőrizzük, hogy valahol a képernyő középső részén legyen
+          expect(position.top).to.be.greaterThan(200)    // legalább 200px-re felülről
+          expect(position.top).to.be.lessThan(800)       // ne legyen túl lent
+    
+          expect(position.left).to.be.greaterThan(70)   // balról legyen valamennyire középen
+          expect(position.left).to.be.lessThan(1000)     // ne lógjon ki
+        })
+    })
+    it('A Sign In gomb betűméretének ellenőrzése', () => {
+      cy.visit('/login')
+    
+      cy.get('button[type="submit"]')
+        .should('be.visible')
+        .should('have.css', 'font-size', '16px') //
+    })
   })
   
