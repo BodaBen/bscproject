@@ -20,7 +20,7 @@ describe('Egyszerű keresés tesztelése a főoldalon', () => {
         .should('be.visible')
         .click({ force: true })
   
-      cy.wait(500)
+      cy.wait(1000)
   
       // Search bar megjelenésének ellenőrzése
       cy.get('input')
@@ -32,7 +32,7 @@ describe('Egyszerű keresés tesztelése a főoldalon', () => {
       // cy.get('.icons > .icon-search-outline').click({ force: true })
   
       // Hosszabb várakozás a lassú keresés miatt
-      cy.wait(3000)
+      cy.wait(8000)
   
       // Eredménycím ellenőrzése
       cy.get('.first > .post-card-inner > .card > .title')
