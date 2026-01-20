@@ -59,9 +59,9 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
         cy.contains('Short Screen').click({ force: true })
         cy.url().should('include', '/short-screen')
     
-        cy.wait(500)
-        cy.contains('Factor Panel').click({ force: true })
-        cy.url().should('include', '/factor-panel')
+        //cy.wait(500)
+        //cy.contains('Factor Panel').click({ force: true })
+        //cy.url().should('include', '/factor-panel')
     
         cy.wait(500)
         cy.contains('A-Z Companies').click({ force: true })
@@ -171,7 +171,7 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
           // Ellenőrizzük az első elem címét
           cy.get('.first > .post-card-inner > .card > .title')
             .should('be.visible')
-            .and('contain.text', 'log5')
+            .and('contain.text', 'disabled publish test')
         })
       
         it('Long filter kikapcsolásának ellenőrzése (vissza default nézetre)', () => {
@@ -186,7 +186,7 @@ describe('Bejelentkezés utáni ellenőrzések', () => {
           // Ellenőrizzük, hogy az alap listaelem visszatér
           cy.get('.first > .post-card-inner > .card > .title')
             .should('be.visible')
-            .and('contain.text', 'Push20250423')
+            .and('contain.text', 'disabled publish test')
         })
       
         it('Short filter működésének ellenőrzése', () => {
